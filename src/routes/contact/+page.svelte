@@ -8,7 +8,7 @@
     <div class="col-12 col-md-6">
       <div class="rp-card h-100">
         <div class="mono mb-2" style="color:var(--blue);font-size:0.68rem">Email</div>
-        <a href="mailto:alariosjz@gmail.com" style="font-family:var(--serif);font-size:1.15rem;font-weight:700;color:var(--txt)">alariosjz@gmail.com</a>
+        <a href="mailto:andres@baycitynews.com" style="font-family:var(--serif);font-size:1.15rem;font-weight:700;color:var(--txt)">andres@baycitynews.com</a>
         <p style="font-size:1rem;font-weight:300;color:var(--muted);line-height:1.7;margin-top:0.75rem;margin-bottom:0">
           Story tips, pitches, collaborations, or general inquiries.
         </p>

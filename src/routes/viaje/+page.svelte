@@ -54,7 +54,7 @@
       This project is a journalism thesis and a personal act of witness.
     </p>
     <p style="font-size:0.95rem;font-weight:300;color:var(--muted);line-height:1.75;margin:0">
-      Inquiries: <a href="mailto:alariosjz@gmail.com">alariosjz@gmail.com</a>
+      Inquiries: <a href="mailto:andres@baycitynews.com">andres@baycitynews.com</a>
     </p>
   </div>
 </div>

@@ -1,37 +1,58 @@
-/* ── Rug-Porter · Global CSS ─────────────────────────────────────
-   Bootstrap handles layout/responsive. This file handles:
-   - Design tokens (CSS custom properties)
-   - Typography
-   - Custom components
-   No Sass. No compilation. Just CSS.
-─────────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   Rug-Porter · Global CSS
+   ───────────────────────────────────────────────────────────────
+   HOW THIS FILE IS ORGANIZED:
+   1. Design tokens   — change colors, fonts, sizes in one place
+   2. Base styles     — body, headings, links
+   3. Animations      — fadeUp entrance, ticker scroll
+   4. UI components   — cards, buttons, tags, nav, hero, footer
+   5. Page-specific   — photo grid, lightbox, filter bar
 
-/* ── Tokens ──────────────────────────────────────────────────── */
+   Bootstrap (loaded in app.html) handles the grid and breakpoints.
+   Everything else — colors, cards, hover effects — is defined here.
+
+   To customize: look for the section you want, change the value,
+   and it updates everywhere that class is used.
+═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. DESIGN TOKENS ────────────────────────────────────────────
+   CSS custom properties = variables used everywhere below.
+   Change a value here and it updates across the whole site.
+   ──────────────────────────────────────────────────────────────── */
 :root {
-  --bg:        #f2ede6;
-  --surf:      #ece7df;
-  --surf2:     #e4ddd4;
-  --border:    #d4cdc4;
-  --txt:       #1e1a16;
-  --muted:     #6b6560;
-  --dim:       #9e9890;
-  --gold:      #b8922a;
-  --gold-l:    #d4a93c;
-  --blue:      #2c5f8a;
-  --blue-l:    #4a7faa;
-  --blue-pale: #ddeaf4;
+  /* COLORS — background and surface layers */
+  --bg:        #f2ede6;   /* page background (warm off-white) */
+  --surf:      #ece7df;   /* card background (slightly darker) */
+  --surf2:     #e4ddd4;   /* deeper surface, used in hero/ticker */
+  --border:    #d4cdc4;   /* subtle divider lines */
 
-  --serif: 'Playfair Display', Georgia, serif;
-  --mono:  'IBM Plex Mono', monospace;
-  --body:  'Source Serif 4', Georgia, serif;
+  /* COLORS — text */
+  --txt:       #1e1a16;   /* primary text (near-black, warm) */
+  --muted:     #6b6560;   /* secondary text (body copy) */
+  --dim:       #9e9890;   /* tertiary text (labels, captions) */
 
-  --radius:      1.25rem;
-  --radius-sm:   0.625rem;
-  --radius-pill: 9999px;
-  --spring:      cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* COLORS — accent */
+  --gold:      #b8922a;   /* gold accent — dates, stats highlights */
+  --gold-l:    #d4a93c;   /* lighter gold for hover states */
+  --blue:      #2c5f8a;   /* primary brand blue — links, buttons, icons */
+  --blue-l:    #4a7faa;   /* lighter blue for hover states */
+  --blue-pale: #ddeaf4;   /* very light blue — tag backgrounds, tints */
+
+  /* FONTS — change the font name here to swap typefaces site-wide */
+  --serif: 'Playfair Display', Georgia, serif;   /* headlines */
+  --mono:  'IBM Plex Mono', monospace;           /* labels, tags, nav */
+  --body:  'Source Serif 4', Georgia, serif;     /* body copy */
+
+  /* SHAPE */
+  --radius:      1.25rem;                              /* main card corner radius */
+  --radius-sm:   0.625rem;                             /* button corner radius */
+  --radius-pill: 9999px;                               /* fully rounded (tags) */
+  --spring:      cubic-bezier(0.34, 1.56, 0.64, 1);   /* bouncy hover animation easing */
 }
 
-/* ── Base ────────────────────────────────────────────────────── */
+/* ── 2. BASE STYLES ──────────────────────────────────────────────
+   Global defaults for every element on every page.
+   ──────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
@@ -39,9 +60,9 @@ body {
   background: var(--bg);
   color: var(--txt);
   font-family: var(--body);
-  font-size: 1.2rem;
+  font-size: 1.4rem;       /* CUSTOMIZE: base font size for all body text */
   font-weight: 300;
-  line-height: 1.75;
+  line-height: 1.8;        /* CUSTOMIZE: spacing between lines of text */
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -49,15 +70,20 @@ body {
 a { color: var(--blue); text-decoration: none; transition: color 0.2s; }
 a:hover { color: var(--blue-l); }
 
+/* HEADINGS — all use the serif font; adjust sizes below */
 h1, h2, h3, h4 { font-family: var(--serif); font-weight: 700; }
-h1 { font-size: clamp(2.4rem, 5vw, 3.75rem); font-weight: 900; }
-h2 { font-size: 2.25rem; }
-h3 { font-size: 2rem; }
-h4 { font-size: 1.75rem; }
+h1 { font-size: clamp(2.4rem, 5vw, 3.75rem); font-weight: 900; }  /* hero title */
+h2 { font-size: 2.25rem; }   /* section titles */
+h3 { font-size: 2rem; }      /* card titles */
+h4 { font-size: 1.75rem; }   /* sub-headings */
 
-p { font-size: 1.2rem; }
+p { font-size: 1.4rem; }     /* CUSTOMIZE: matches body; keeps paragraphs readable */
 
-/* ── Animations ──────────────────────────────────────────────── */
+/* ── 3. ANIMATIONS ───────────────────────────────────────────────
+   fadeUp: elements slide up and fade in on page load (hero section)
+   ticker: the blue scrolling banner beneath the hero
+   .delay-1 through .delay-4: stagger the fade-up timing per element
+   ──────────────────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -67,7 +93,7 @@ p { font-size: 1.2rem; }
   to   { transform: translateX(-50%); }
 }
 .fade-up { animation: fadeUp 0.65s cubic-bezier(0.16,1,0.3,1) both; }
-.delay-1 { animation-delay: 100ms; }
+.delay-1 { animation-delay: 100ms; }   /* CUSTOMIZE: tweak timing of each entrance */
 .delay-2 { animation-delay: 200ms; }
 .delay-3 { animation-delay: 300ms; }
 .delay-4 { animation-delay: 400ms; }
@@ -100,7 +126,11 @@ p { font-size: 1.2rem; }
   text-transform: uppercase;
 }
 
-/* ── Cards ───────────────────────────────────────────────────── */
+/* ── 4. UI COMPONENTS ────────────────────────────────────────────
+   Reusable building blocks. Used across every page.
+   ──────────────────────────────────────────────────────────────── */
+
+/* CARDS — the main content block used for stories, about, toolkit, etc. */
 .rp-card {
   background: var(--surf);
   border: none;
@@ -182,7 +212,7 @@ a.rp-card:hover { color: var(--txt); }
 }
 a.rp-card:hover .card-arrow { transform: translateX(5px); }
 
-/* ── Buttons ─────────────────────────────────────────────────── */
+/* BUTTONS — .btn-blue (solid), .btn-gold (accent), .btn-outline (bordered) */
 .btn-blue {
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -252,7 +282,7 @@ a.rp-card:hover .card-arrow { transform: translateX(5px); }
   color: var(--blue);
 }
 
-/* ── Tags ────────────────────────────────────────────────────── */
+/* TAGS — the small pill labels (Data Journalism, Maps & GIS, etc.) */
 .rp-tag {
   display: inline-block;
   font-family: var(--mono);
@@ -272,7 +302,7 @@ a.rp-card:hover .card-arrow { transform: translateX(5px); }
   border-color: var(--blue);
 }
 
-/* ── Nav ─────────────────────────────────────────────────────── */
+/* NAV — sticky top bar; Bootstrap handles mobile collapse */
 .rp-nav {
   background: rgba(242,237,230,0.93) !important;
   backdrop-filter: blur(12px);
@@ -312,7 +342,7 @@ a.rp-card:hover .card-arrow { transform: translateX(5px); }
   background: var(--blue-pale);
 }
 
-/* ── Hero ────────────────────────────────────────────────────── */
+/* HERO — landing page top section with name, bio, portrait, and stats */
 .rp-hero {
   background: var(--bg);
   padding: 5rem 0 4rem;
@@ -335,7 +365,7 @@ a.rp-card:hover .card-arrow { transform: translateX(5px); }
   max-width: 560px;
 }
 
-/* ── Stat card ───────────────────────────────────────────────── */
+/* STAT CARDS — the four numbered boxes (4.4K, 1.8K, 3, 150+) */
 .stat-card {
   background: var(--surf);
   border-radius: var(--radius) 0.4rem var(--radius) 0.4rem;
@@ -370,7 +400,9 @@ a.rp-card:hover .card-arrow { transform: translateX(5px); }
   color: var(--dim);
 }
 
-/* ── Ticker ──────────────────────────────────────────────────── */
+/* TICKER — the scrolling blue banner below the hero
+   To change speed: edit the animation duration (34s = moderate scroll)
+   To add/remove items: edit tickerItems array in +page.svelte */
 .rp-ticker {
   background: var(--blue);
   overflow: hidden;
@@ -437,7 +469,11 @@ a.rp-card:hover .card-arrow { transform: translateX(5px); }
 .filter-btn:hover { color: var(--blue); background: var(--blue-pale); }
 .filter-btn.active { background: var(--blue); color: #fff; }
 
-/* ── Photography grid ────────────────────────────────────────── */
+/* ── 5. PAGE-SPECIFIC STYLES ─────────────────────────────────────
+   Styles used only on specific pages (photography, reporting filters).
+   ──────────────────────────────────────────────────────────────── */
+
+/* PHOTO GRID — masonry column layout on the Photography page */
 .photo-grid { columns: 1; column-gap: 0.875rem; }
 @media (min-width: 576px) { .photo-grid { columns: 2; } }
 @media (min-width: 992px) { .photo-grid { columns: 3; } }
@@ -588,7 +624,7 @@ a.rp-card:hover .card-arrow { transform: translateX(5px); }
 .tab-btn.active { background: var(--blue); color: #fff; }
 .tab-count { font-size: 0.6rem; opacity: 0.7; }
 
-/* ── Footer ──────────────────────────────────────────────────── */
+/* FOOTER — edit links in src/lib/components/Footer.svelte */
 .rp-footer {
   border-top: 1px solid var(--border);
   background: var(--surf);

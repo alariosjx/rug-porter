@@ -1,4 +1,9 @@
 <script>
+  // ── Social links ──────────────────────────────────────────────
+  // CUSTOMIZE: update href values with your profile URLs.
+  // Each entry needs: href (URL), label (text shown), icon (inline SVG string).
+  // To add a new social: copy one object, update href/label, paste an SVG from
+  // https://simpleicons.org or https://feathericons.com
   const socials = [
     {
       href: 'https://instagram.com/alariosjz',
@@ -36,24 +41,32 @@
 <footer class="rp-footer">
   <div class="container">
     <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-4">
+
+      <!-- Brand block — CUSTOMIZE: name and subtitle -->
       <div>
         <div class="footer-brand">Andres Jimenez Larios</div>
         <div class="footer-sub">Multimedia Reporter · Bay Area, CA</div>
       </div>
+
+      <!-- Social links with icons — edit the socials array above -->
       <div class="footer-links d-flex flex-wrap gap-3">
         {#each socials as { href, label, icon }}
           <a {href} target="_blank" rel="noopener noreferrer" class="footer-social-link">
+            <!-- {@html} renders the SVG string — safe here because it's hardcoded above -->
             {@html icon}
             <span>{label}</span>
           </a>
         {/each}
       </div>
+
+      <!-- Copyright year — CUSTOMIZE: update year -->
       <div class="footer-copy">© 2026</div>
     </div>
   </div>
 </footer>
 
 <style>
+  /* Social link layout: icon + label side by side */
   .footer-social-link {
     display: inline-flex;
     align-items: center;
