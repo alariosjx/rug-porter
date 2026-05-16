@@ -11,7 +11,7 @@ export default {
       fallback: "404.html",
     }),
     paths: {
-      base: "/rug-porter",
+      base,
     },
     alias: {
       $components: "src/lib/components",
