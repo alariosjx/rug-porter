@@ -150,7 +150,7 @@
       </div>
       <div class="col-12 col-md-5 d-none d-md-block">
         <img
-          src="{base}/images/bcn-goats.jpg"
+          src="{base}/images/imssixtl.jpg"
           alt="Field reporting — El Viaje Eterno thesis project"
           style="width:100%;height:200px;object-fit:cover;border-radius:0.75rem;display:block;box-shadow:0 4px 20px rgba(30,26,22,0.15)"
         />
